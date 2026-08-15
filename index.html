@@ -3,282 +3,239 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roblox Spelling Bee World Records</title>
+  <title>Spelling Bee Game</title>
   <style>
+    /* basic Styling */
     body {
-      background-color: #0d1117;
-      color: #c9d1d9;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: Arial, sans-serif;
+      text-align: center;
       margin: 0;
       padding: 20px;
+      background-color: #f4f4f9;
     }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* Top Bar Header */
-    header {
+    .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #30363d;
-      padding-bottom: 15px;
-      margin-bottom: 25px;
+      max-width: 600px;
+      margin: 0 auto 20px auto;
     }
-    h1 { color: #58a6ff; margin: 0; font-size: 24px; }
-    
-    /* Auth Buttons & User Display */
-    .auth-bar { display: flex; align-items: center; gap: 10px; }
-    .user-tag { color: #238636; font-weight: bold; }
-    .btn {
-      background-color: #21262d;
-      color: #c9d1d9;
-      border: 1px solid #30363d;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .btn:hover { background-color: #30363d; }
-    .btn-primary { background-color: #238636; color: white; border: none; }
-    .btn-primary:hover { background-color: #2ea043; }
-    .btn-google {
-      width: 100%;
-      background-color: #ffffff;
-      color: #000000;
-      border: none;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn-google:hover { background-color: #e6e6e6; }
-
-    /* YouTube Banner */
-    .channel-banner {
-      background: linear-gradient(135deg, #23272d 0%, #161b22 100%);
-      border: 2px solid #ff0000;
-      border-radius: 10px;
+    .game-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
       padding: 20px;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    .channel-banner h2 { color: #ffffff; margin-top: 0; margin-bottom: 10px; }
-    .yt-btn {
-      display: inline-block;
-      background-color: #ff0000;
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    /* Leaderboard Table */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #161b22;
       border-radius: 8px;
-      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #30363d; }
-    th { background-color: #21262d; color: #8b949e; }
-    .empty-msg { text-align: center; color: #8b949e; padding: 30px 16px; font-style: italic; }
-
-    /* Account Modal Popup */
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: white;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    /* Modal Styling */
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
     }
     .modal-content {
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: white;
       padding: 25px;
-      border-radius: 10px;
-      width: 320px;
+      border-radius: 8px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
     }
-    .modal-content h3 { margin-top: 0; color: #58a6ff; text-align: center; }
-    .modal-content input {
-      width: 90%;
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    input {
       padding: 10px;
-      margin: 8px 0;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      color: white;
-      border-radius: 5px;
-   <!-- Modal for Sign In / Register -->
-<div id="authModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="toggleModal()">&times;</span>
-    <h2 id="modalTitle">Sign In / Register</h2>
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    .button-group button {
+      flex: 1;
+    }
+    .google-btn {
+      background-color: #db4437;
+    }
+    .google-btn:hover {
+      background-color: #c13527;
+    }
+    .error-msg {
+      color: red;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
 
-    <!-- Input Fields -->
-    <input type="text" id="authUsername" placeholder="Username">
-    <input type="email" id="authEmail" placeholder="Email Address">
-    <input type="password" id="authPassword" placeholder="Password">
-    <div id="authError" class="error-msg"></div>
-
-    <!-- Action Buttons -->
-    <div class="button-group">
-      <button id="signInBtn">Sign In</button>
-      <button id="signUpBtn">Register</button>
+  <div class="header">
+    <h1>🐝 Spelling Bee</h1>
+    <div>
+      <span id="userDisplay"></span>
+      <button id="openAuthBtn">Sign In / Register</button>
+      <button id="signOutBtn" style="display: none;">Sign Out</button>
     </div>
-
-    <hr>
-    
-    <!-- Google Sign-In Button -->
-    <button id="googleBtn" class="google-btn">Sign in with Google</button>
-  </div>
-</div>
-    
-    <!-- Google Sign-In Button -->
-    <button id="googleBtn" class="google-btn">Sign in with Google</button>
-  </div>
-</div>
-    <!-- Top YouTube Link -->
-    <div class="channel-banner">
-      <h2>Watch Official Runs & Proof</h2>
-      <a href="https://www.youtube.com/@GamerSpellsXV" target="_blank" class="yt-btn">
-        Visit GamerSpellsXV on YouTube
-      </a>
-    </div>
-
-    <!-- Leaderboard Table -->
-    <h2>Global Leaderboard</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Record / Streak</th>
-          <th>Video Proof</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="4" class="empty-msg">No submissions yet. Sign in above to submit your record!</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 
-  <!-- Sign In / Sign Up Modal -->
+  <div class="game-container">
+    <h2>Welcome to Spelling Bee!</h2>
+    <p>Type your guess and click submit.</p>
+    <!-- Your game elements like board, letter tiles, etc. go here -->
+  </div>
+
+  <!-- Auth Modal -->
   <div id="authModal" class="modal">
     <div class="modal-content">
-      <h3>Account Access</h3>
-      
-      <!-- Google Login Button -->
-      <button class="btn-google" onclick="handleGoogleLogin()">
-        <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.259h2.908c1.702-1.567 2.684-3.874 2.684-6.617z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
-        Sign in with Google
-      </button>
+      <span class="close-btn" id="closeModalBtn">&times;</span>
+      <h2>Account</h2>
 
-      <div class="divider">— OR USE EMAIL —</div>
-
-       <input type="text" id="authUsername" placeholder="Username">
+      <input type="text" id="authUsername" placeholder="Username">
       <input type="email" id="authEmail" placeholder="Email Address">
       <input type="password" id="authPassword" placeholder="Password">
-      <div id="authError" class="error-msg"><div
-      
-      <div class="modal-actions">
-        <button class="btn" onclick="toggleModal(false)">Cancel</button>
-        <button class="btn" onclick="handleSignUp()">Sign Up</button>
-        <button class="btn btn-primary" onclick="handleLogin()">Log In</button>
+      <div id="authError" class="error-msg"></div>
+
+      <div class="button-group">
+        <button id="signInBtn">Sign In</button>
+        <button id="signUpBtn">Register</button>
       </div>
+
+      <hr style="width: 100%;">
+      
+      <button id="googleBtn" class="google-btn">Sign in with Google</button>
     </div>
   </div>
 
-  <!-- Firebase JavaScript SDKs -->
+  <!-- Firebase JavaScript Module -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
       getAuth, 
       createUserWithEmailAndPassword, 
       signInWithEmailAndPassword, 
-      signInWithPopup,
-      GoogleAuthProvider,
+      signInWithPopup, 
+      GoogleAuthProvider, 
       signOut, 
       onAuthStateChanged,
-      updateProfile
+      updateProfile 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+    // YOUR FIREBASE CONFIG HERE
     const firebaseConfig = {
       apiKey: "AIzaSyDXnV5R1fl8ypfQhvdcSK5xZzR2PSrO6RM",
       authDomain: "spellingbee-74883.firebaseapp.com",
       projectId: "spellingbee-74883",
-      storageBucket: "spellingbee-74883.appspot.com",
+      storageBucket: "spellingbee-74883.firebasestorage.app",
       messagingSenderId: "123344802307",
-      appId: "1:123344802307:web:77aa8ec2271e2b0da3f436",
+      appId: "1:123344802307:web:77aa8ec2271e2b0da3f436"
     };
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-
     const auth = getAuth(app);
-    const googleProvider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();
 
-    window.toggleModal = (show) => {
-      document.getElementById('authModal').style.display = show ? 'flex' : 'none';
-      document.getElementById('authError').innerText = '';
-    };
+    // DOM Elements
+    const authModal = document.getElementById("authModal");
+    const openAuthBtn = document.getElementById("openAuthBtn");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const signInBtn = document.getElementById("signInBtn");
+    const signUpBtn = document.getElementById("signUpBtn");
+    const googleBtn = document.getElementById("googleBtn");
+    const signOutBtn = document.getElementById("signOutBtn");
+    const userDisplay = document.getElementById("userDisplay");
+    const authError = document.getElementById("authError");
 
-    window.handleGoogleLogin = async () => {
+    // Toggle Modal
+    openAuthBtn.onclick = () => { authModal.style.display = "flex"; };
+    closeModalBtn.onclick = () => { authModal.style.display = "none"; };
+    window.onclick = (e) => { if (e.target === authModal) authModal.style.display = "none"; };
+
+    // Register with Email & Username
+    signUpBtn.addEventListener("click", async () => {
+      authError.textContent = "";
+      const username = document.getElementById("authUsername").value;
+      const email = document.getElementById("authEmail").value;
+      const password = document.getElementById("authPassword").value;
+
       try {
-        await signInWithPopup(auth, googleProvider);
-        window.toggleModal(false);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        if (username) {
+          await updateProfile(userCredential.user, { displayName: username });
+        }
+        authModal.style.display = "none";
       } catch (err) {
-        document.getElementById('authError').innerText = err.message.replace("Firebase: ", "");
+        authError.textContent = err.message;
       }
-    };
+    });
 
-    window.handleSignUp = async () => {
-      const email = document.getElementById('authEmail').value;
-      const pass = document.getElementById('authPassword').value;
+    // Sign In with Email
+    signInBtn.addEventListener("click", async () => {
+      authError.textContent = "";
+      const email = document.getElementById("authEmail").value;
+      const password = document.getElementById("authPassword").value;
+
       try {
-        await createUserWithEmailAndPassword(auth, email, pass);
-        window.toggleModal(false);
+        await signInWithEmailAndPassword(auth, email, password);
+        authModal.style.display = "none";
       } catch (err) {
-        document.getElementById('authError').innerText = err.message.replace("Firebase: ", "");
+        authError.textContent = err.message;
       }
-    };
+    });
 
-    window.handleLogin = async () => {
-      const email = document.getElementById('authEmail').value;
-      const pass = document.getElementById('authPassword').value;
+    // Google Sign-In
+    googleBtn.addEventListener("click", async () => {
+      authError.textContent = "";
       try {
-        await signInWithEmailAndPassword(auth, email, pass);
-        window.toggleModal(false);
+        await signInWithPopup(auth, provider);
+        authModal.style.display = "none";
       } catch (err) {
-        document.getElementById('authError').innerText = err.message.replace("Firebase: ", "");
+        authError.textContent = err.message;
       }
-    };
+    });
 
-    window.handleLogout = () => signOut(auth);
+    // Sign Out
+    signOutBtn.addEventListener("click", () => {
+      signOut(auth);
+    });
 
+    // Auth State Observer
     onAuthStateChanged(auth, (user) => {
-      const openBtn = document.getElementById('openAuthBtn');
-      const logoutBtn = document.getElementById('logoutBtn');
-      const userDisplay = document.getElementById('userDisplay');
-
       if (user) {
-        openBtn.style.display = 'none';
-        logoutBtn.style.display = 'inline-block';
-        userDisplay.style.display = 'inline-block';
-        userDisplay.innerText = `👤 ${user.displayName || user.email.split('@')[0]}`;
+        const name = user.displayName || user.email;
+        userDisplay.textContent = `Hi, ${name}! `;
+        openAuthBtn.style.display = "none";
+        signOutBtn.style.display = "inline-block";
       } else {
-        openBtn.style.display = 'inline-block';
-        logoutBtn.style.display = 'none';
-        userDisplay.style.display = 'none';
+        userDisplay.textContent = "";
+        openAuthBtn.style.display = "inline-block";
+        signOutBtn.style.display = "none";
       }
     });
   </script>
