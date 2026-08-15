@@ -200,19 +200,17 @@
       onAuthStateChanged 
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    // ⚠️ REPLACE WITH YOUR 6 FIREBASE KEYS
     const firebaseConfig = {
-     const firebaseConfig = {
-  const firebaseConfig = {
-  apiKey: "AIzaSyDXnV5R1fl8ypfQhvdcSK5xZzR2PSrO6RM",
-  authDomain: "spellingbee-74883.firebaseapp.com",
-  projectId: "spellingbee-74883",
-  storageBucket: "spellingbee-74883.appspot.com",
-  messagingSenderId: "123344802307",
-  appId: "1:123344802307:web:77aa8ec2271e2b0da3f436"
-};
-};
+      apiKey: "AIzaSyDXnV5R1fl8ypfQhvdcSK5xZzR2PSrO6RM",
+      authDomain: "spellingbee-74883.firebaseapp.com",
+      projectId: "spellingbee-74883",
+      storageBucket: "spellingbee-74883.appspot.com",
+      messagingSenderId: "123344802307",
+      appId: "1:123344802307:web:77aa8ec2271e2b0da3f436"
+      measurementId: "G-R349GMRBZ6"
     };
+
+    const app = initializeApp(firebaseConfig);
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
