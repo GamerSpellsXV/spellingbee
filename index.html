@@ -117,24 +117,29 @@
       border: 1px solid #30363d;
       color: white;
       border-radius: 5px;
-    }
-    .divider { text-align: center; color: #8b949e; margin: 10px 0; font-size: 12px; }
-    .modal-actions { margin-top: 15px; text-align: right; }
-    .error-msg { color: #f85149; font-size: 13px; margin-top: 5px; }
-  </style>
-</head>
-<body>
+   <div id="authModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="toggleModal()">&times;</span>
+    <h2 id="modalTitle">Sign In / Register</h2>
 
-  <div class="container">
-    <header>
-      <h1>Spelling Bee Records</h1>
-      <div class="auth-bar">
-        <span id="userDisplay" class="user-tag" style="display:none;"></span>
-        <button id="openAuthBtn" class="btn btn-primary" onclick="toggleModal(true)">Sign In / Register</button>
-        <button id="logoutBtn" class="btn" style="display:none;" onclick="handleLogout()">Log Out</button>
-      </div>
-    </header>
+    <!-- Input Fields -->
+    <input type="text" id="authUsername" placeholder="Username">
+    <input type="email" id="authEmail" placeholder="Email Address">
+    <input type="password" id="authPassword" placeholder="Password">
+    <div id="authError" class="error-msg"></div>
 
+    <!-- Action Buttons -->
+    <div class="button-group">
+      <button id="signInBtn">Sign In</button>
+      <button id="signUpBtn">Register</button>
+    </div>
+
+    <hr>
+    
+    <!-- Google Sign-In Button -->
+    <button id="googleBtn" class="google-btn">Sign in with Google</button>
+  </div>
+</div>
     <!-- Top YouTube Link -->
     <div class="channel-banner">
       <h2>Watch Official Runs & Proof</h2>
