@@ -20,18 +20,44 @@
       text-align: center;
       padding: 20px 0;
     }
-    h1 { color: #58a6ff; margin-bottom: 5px; }
+    h1 { 
+      color: #58a6ff; 
+      margin-bottom: 5px; 
+    }
+    .subtitle {
+      color: #8b949e;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
     
-    /* Champion Spotlight */
-    .spotlight {
+    /* YouTube Banner / Main Link */
+    .channel-banner {
       background: linear-gradient(135deg, #23272d 0%, #161b22 100%);
-      border: 2px solid #f1e05a;
+      border: 2px solid #ff0000;
       border-radius: 10px;
       padding: 20px;
       text-align: center;
       margin-bottom: 30px;
     }
-    .spotlight h2 { color: #f1e05a; margin-top: 0; }
+    .channel-banner h2 { 
+      color: #ffffff; 
+      margin-top: 0; 
+      margin-bottom: 10px;
+    }
+    .yt-btn {
+      display: inline-block;
+      background-color: #ff0000;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+    .yt-btn:hover {
+      background-color: #cc0000;
+    }
     
     /* Leaderboard Table */
     table {
@@ -40,30 +66,22 @@
       background: #161b22;
       border-radius: 8px;
       overflow: hidden;
+      margin-top: 15px;
     }
     th, td {
       padding: 12px 16px;
       text-align: left;
       border-bottom: 1px solid #30363d;
     }
-    th { background-color: #21262d; color: #8b949e; }
-    tr:hover { background-color: #1f242c; }
-    a { color: #58a6ff; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    
-    /* Action Buttons */
-    .btn-group {
-      text-align: center;
-      margin-top: 25px;
+    th { 
+      background-color: #21262d; 
+      color: #8b949e; 
     }
-    .btn {
-      display: inline-block;
-      background-color: #238636;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      margin: 5px;
+    .empty-msg {
+      text-align: center;
+      color: #8b949e;
+      padding: 30px 16px;
+      font-style: italic;
     }
   </style>
 </head>
@@ -72,19 +90,19 @@
   <div class="container">
     <header>
       <h1>Roblox Spelling Bee World Records</h1>
-      <p>Official Leaderboards & Verified Submissions</p>
+      <p class="subtitle">Official Leaderboards & Verified Submissions</p>
     </header>
 
-    <!-- #1 Record Holder Banner -->
-    <div class="spotlight">
-      <h2>🏆 WORLD RECORD HOLDER 🏆</h2>
-      <h3>Player: <span style="color:#ffffff;">GamerSpellsXV</span></h3>
-      <p><strong>Record:</strong> 500 Words Spelled / 120 Streak</p>
-      <a href="https://www.youtube.com/@GamerSpellsXV" target="_blank" class="btn">Watch Proof on YouTube</a>
+    <!-- YouTube Link (Top Banner Only) -->
+    <div class="channel-banner">
+      <h2>Watch Official Runs & Proof</h2>
+      <a href="https://www.youtube.com/@GamerSpellsXV" target="_blank" class="yt-btn">
+        Visit GamerSpellsXV on YouTube
+      </a>
     </div>
 
-    <!-- Main Table -->
-    <h2>Global Leaderboards</h2>
+    <!-- Leaderboard Table -->
+    <h2>Global Leaderboard</h2>
     <table>
       <thead>
         <tr>
@@ -96,22 +114,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>
-          <td><a href="#" target="_blank"</a></td>
-        </tr>
-        <tr>
-          <td>🥈 #2</td>
-          <td>PlayerTwo</td>
-          <td>450 Correct</td>
-          <td><a href="#" target="_blank">Watch Run</a></td>
+          <td colspan="4" class="empty-msg">No submissions yet. Check back soon for official world records!</td>
         </tr>
       </tbody>
     </table>
-
-    <div class="btn-group">
-      <a href="https://forms.google.com" target="_blank" class="btn">Submit Your Run</a>
-      <a href="https://www.youtube.com/@GamerSpellsXV" target="_blank" class="btn" style="background:#da3633;">YouTube Channel</a>
-    </div>
   </div>
 
 </body>
